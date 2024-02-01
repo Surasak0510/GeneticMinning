@@ -1,0 +1,25 @@
+:root {
+    --primary-color : skyblue ;
+    --secondary-color : yellow ;
+    --Main-font-color : rgb(112, 112, 112) ;
+    --Sec-font-color : rgb(170, 170, 170) ;
+    --background-color : rgb(243, 240, 240) ;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Prompt', sans-serif;
+    color: var(--Main-font-color);
+}
+
+p {
+    font-family: 'Prompt', sans-serif;
+    color : var(--Sec-font-color)
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+.nav-background {
+    background-color: var(--primary-color);
+}
