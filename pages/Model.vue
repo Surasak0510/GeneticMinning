@@ -1,11 +1,10 @@
-
 <template>
     <div>
         <div class="container pt-5">
             <div class="p-3"></div>
-            <div  v-for="(item , index) in this.results" :key="index" class="row border my-2 border-2 p-2 gap-2 rounded-3">
-                <p class="py-0 m-0">เซ็ตที่ {{ index + 1 }}</p>
-                <div v-for="(i , index) in item.set" :key="index" class="col py-auto border border-2 rounded-pill">
+            <div v-for="(item, indexOfResults) in results" :key="'result-' + indexOfResults" data-aos="fade-up" data-aos-duration="1500" class="row border my-2 border-2 p-2 gap-2 rounded-3">
+                <p class="py-0 m-0">เซ็ตที่ {{ indexOfResults + 1 }}</p>
+                <div v-for="(i , indexOfSet) in item.set" :key="indexOfSet" class="col py-auto border border-2 rounded-pill">
                     <p class="text-center m-0 py-2">{{ i }}</p>
                 </div>
                 <div class="col-12 mt-2">
@@ -13,48 +12,60 @@
                 </div>
             </div>
             <div class="row text-center">
-                <p class="p-0 m-0">
+                <p class="p-0 m-0 py-2">
                     ---------------------------- Father & Mather --------------------------------
                 </p>
             </div>
-            <div v-for="(item , index) in this.min2Sets" :key="index" class="row border my-2 border-2 p-2 gap-2 rounded-3">
-                <p class="py-0 m-0">เซ็ตที่น้อยเซ็ตที่ {{ index + 1 }}</p>
-                <div v-for="(i , index) in item" :key="index" class="col py-auto border border-2 rounded-pill">
+            <div  v-for="(item , indexOfMin2Set) in min2Sets" :key="indexOfMin2Set" data-aos="fade-up" data-aos-duration="1500"  class="row border my-2 border-2 p-2 gap-2 rounded-3">
+                <p class="py-0 m-0">เซ็ตที่น้อยเซ็ตที่ {{ indexOfMin2Set + 1 }}</p>
+                <div v-for="(i , indexOfItem) in item" :key="indexOfItem" class="col py-auto border border-2 rounded-pill">
                     <p class="text-center m-0 py-2">{{ i }}</p>
                 </div>
             </div>
             <div class="row text-center">
-                <p class="p-0 m-0">
+                <p class="p-0 m-0 py-2">
                     ----------------------------- Single Point -------------------------------
                 </p>
             </div>
-            <div class="row border my-2 border-2 p-2 gap-2 rounded-3" >
-                <p class="py-0 m-0">เซ็ตที่น้อยเซ็ตที่ </p>
-                <div v-for="(item , index) in this.SingleSet1" :key="index" class="col py-auto border border-2 rounded-pill">
+            <div data-aos="fade-up" data-aos-duration="1500" class="row border my-2 border-2 p-2 gap-2 rounded-3" >
+                <p class="py-0 m-0">Single Point 1</p>
+                <div v-for="(item , index) in SingleSet1" :key="index" class="col py-auto border border-2 rounded-pill">
                     <p class="text-center m-0 py-2">{{ item }}</p>
                 </div>
+                <div class="col-12 mt-2">
+                    <p class="text-center">ค่า Fitness : {{ SingleFitness1.fitness }}</p>
+                </div>
             </div>
-            <div class="row border my-2 border-2 p-2 gap-2 rounded-3" >
-                <p class="py-0 m-0">เซ็ตที่น้อยเซ็ตที่ </p>
-                <div v-for="(item , index) in this.SingleSet2" :key="index" class="col py-auto border border-2 rounded-pill">
+            <div data-aos="fade-up" data-aos-duration="1500" class="row border my-2 border-2 p-2 gap-2 rounded-3" >
+                <p class="py-0 m-0">Single Point 2</p>
+                <div v-for="(item , index) in SingleSet2" :key="index" class="col py-auto border border-2 rounded-pill">
                     <p class="text-center m-0 py-2">{{ item }}</p>
+                </div>
+                <div class="col-12 mt-2">
+                    <p class="text-center">ค่า Fitness : {{ SingleFitness2.fitness }}</p>
                 </div>
             </div>
             <div class="row text-center">
-                <p class="p-0 m-0">
+                <p class="p-0 m-0 py-2">
                     ------------------------------- Two Point -----------------------------
                 </p>
             </div>
-            <div class="row border my-2 border-2 p-2 gap-2 rounded-3" >
-                <p class="py-0 m-0">เซ็ตที่น้อยเซ็ตที่ </p>
-                <div v-for="(item , index) in this.TwoSet3" :key="index" class="col py-auto border border-2 rounded-pill">
+            <div data-aos="fade-up" data-aos-duration="1500" class="row border my-2 border-2 p-2 gap-2 rounded-3" >
+                <p class="py-0 m-0">Two Point 1</p>
+                <div v-for="(item , index) in TwoSet3" :key="index" class="col py-auto border border-2 rounded-pill">
                     <p class="text-center m-0 py-2">{{ item }}</p>
                 </div>
+                <div class="col-12 mt-2">
+                    <p class="text-center">ค่า Fitness : {{ TwoFitness1.fitness }}</p>
+                </div>
             </div>
-            <div class="row border my-2 border-2 p-2 gap-2 rounded-3" >
-                <p class="py-0 m-0">เซ็ตที่น้อยเซ็ตที่ </p>
-                <div v-for="(item , index) in this.TwoSet4" :key="index" class="col py-auto border border-2 rounded-pill">
+            <div data-aos="fade-up" data-aos-duration="1500" class="row border my-2 border-2 p-2 gap-2 rounded-3" >
+                <p class="py-0 m-0">Two Point 2</p>
+                <div v-for="(item , index) in TwoSet4" :key="index" class="col py-auto border border-2 rounded-pill">
                     <p class="text-center m-0 py-2">{{ item }}</p>
+                </div>
+                <div class="col-12 mt-2">
+                    <p class="text-center">ค่า Fitness : {{ TwoFitness2.fitness }}</p>
                 </div>
             </div>
         </div>
@@ -62,40 +73,49 @@
 </template>
 
 <script>
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 export default {
     layout: 'default',
     data() {
         return {
-            length: null, // แก้จาก Langth เป็น length
-            volume: null, // แก้จาก Volume เป็น volume
+            length: null,
+            volume: null,
             functionValue: null,
 
             results: [],
-            setPopulation: [], // แก้จาก set_population เป็น setPopulation
-
-            min2Sets: [], // แก้จาก min_2_sets เป็น min2Sets
-            setMin1: [], // แก้จาก set_min_1 เป็น setMin1
-            setMin2: [], // แก้จาก set_min_2 เป็น setMin2
+            setPopulation: [],
+            min2Sets: [],
+            setMin1: [],
+            setMin2: [],
             numbers: [],
 
-            SingleSet1: [], // 
-            SingleSet2: [], // 
-            TwoSet3: [], //
+            SingleSet1: [],
+            SingleFitness1: 0,
+            SingleSet2: [],
+            SingleFitness2: 0,
+            TwoSet3: [],
+            TwoFitness1: 0,
             TwoSet4: [],
+            TwoFitness2: 0,
 
-            crossoverSinglePoint : null,
-            crossoverTwoPoint : null
+            crossoverSinglePoint: null,
+            crossoverTwoPoint: null,
+
+            result5: [],
+            result6: []
         }
     },
     mounted() {
-        this.get()
-        this.runModel()
+        AOS.init();
+        this.get();
+        this.runModel();
     },
     methods: {
         random_number(lengthOfList) {
-            this.numbers = Array.from({ length: lengthOfList }, (_, i) => i + 1);
-            this.numbers.sort(() => Math.random() - 0.5); // สลับลำดับของอินเด็กซ์ในอาร์เรย์
-            return this.numbers;
+            const numbers = Array.from({ length: lengthOfList }, (_, i) => i + 1);
+            numbers.sort(() => Math.random() - 0.5);
+            return numbers;
         },
         check_list(numbers) {
             const Cost = {
@@ -116,57 +136,67 @@ export default {
             const result = { set: data[1], fitness: data[2] } ;
             return result;
         },
-        createJson(number, set) { // แก้จาก create_json เป็น createJson
+        createJson(number, set) {
             const fitness = this.check_list(set);
-            const jsonData = this.display([number, set, fitness.fitness]); // แก้จาก json_data เป็น jsonData
-            this.results.push(jsonData);
+            const jsonData = this.display([number, set, fitness.fitness]);
             console.log(jsonData);
             return [number, set, fitness];
         },
         lessFitness2(data) {
-            if (data && Object.keys(data).length > 0) { // ตรวจสอบว่าข้อมูลใน data มีความยาวมากกว่า 0 หรือไม่
+            if (data && data.length > 0) {
                 const min2Fitness = data.slice().sort((a, b) => a[Object.keys(a)[0]].fitness - b[Object.keys(b)[0]].fitness).slice(0, 2);
-                // const min2Sets = [min2Fitness[0][Object.keys(min2Fitness[0])[0]].set, min2Fitness[1][Object.keys(min2Fitness[1])[0]].set];
-                console.log("2 sets with the lowest fitness values:");
                 min2Fitness.forEach(dataMin => {
                     console.log(dataMin);
-                    this.min2Sets.push(dataMin.set)
-                })
+                    this.min2Sets.push(dataMin.set);
+                });
                 console.log("Sets with the lowest fitness values:");
                 console.log(this.min2Sets);
                 return this.min2Sets;
             } else {
-                console.log("No data available or invalid data format"); // เพิ่มข้อความแจ้งเตือนเมื่อไม่พบข้อมูลหรือข้อมูลไม่ถูกต้อง
+                console.log("No data available or invalid data format");
                 return [];
             }
         },
         runModel() {
             for (let i = 0; i < this.volume; i++) {
-                this.numbers = this.random_number(this.length);
-                const result = this.check_list(this.numbers);
-                console.log(this.display([i, this.numbers, result.fitness]));
-                const jsonData = this.display([i, this.numbers, result.fitness]);
+                const numbers = this.random_number(this.length);
+                const result = this.check_list(numbers);
+                console.log(this.display([i, numbers, result.fitness]));
+                const jsonData = this.display([i, numbers, result.fitness]);
                 this.results.push(jsonData);
-                this.setPopulation.push(this.numbers);
+                this.setPopulation.push(numbers);
             }
-            this.min2Sets = this.lessFitness2(this.results); // แก้จาก min_2_sets เป็น min2Sets
-            console.log("+++++++++++++++++",this.min2Sets)
-            this.setMin1 = this.min2Sets[0]; // แก้จาก set_min_1 เป็น setMin1
-            this.setMin2 = this.min2Sets[1]; // แก้จาก set_min_2 เป็น setMin2
+            this.min2Sets = this.lessFitness2(this.results);
+            console.log("+++++++++++++++++", this.min2Sets);
+            this.setMin1 = this.min2Sets[0];
+            this.setMin2 = this.min2Sets[1];
 
-            this.generateSets()
+            this.generateSets();
 
             const result1 = this.createJson(1, this.SingleSet1);
             const result2 = this.createJson(2, this.SingleSet2);
             const result3 = this.createJson(3, this.TwoSet3);
             const result4 = this.createJson(4, this.TwoSet4);
 
-            const crossoverSinglePoint = Math.abs(result1[0].fitness + result2[0].fitness);
-            console.log("ผลรวมของ Fitness Single Point :", crossoverSinglePoint);
+            this.crossoverSinglePoint = Math.abs(result1[2].fitness + result2[2].fitness);
+            console.log("ผลรวมของ Fitness Single Point :", this.crossoverSinglePoint);
 
-            const crossoverTwoPoint = Math.abs(result3[0].fitness + result4[0].fitness);
-            console.log("ผลรวมของ Fitness Two Point :", crossoverTwoPoint);
+            this.crossoverTwoPoint = Math.abs(result3[2].fitness + result4[2].fitness);
+            console.log("ผลรวมของ Fitness Two Point :", this.crossoverTwoPoint);
 
+            if (this.crossoverSinglePoint < this.crossoverTwoPoint) {
+                this.Offspring1 = this.SingleSet1;
+                this.Offspring2 = this.SingleSet2;
+            } else {
+                this.Offspring1 = this.TwoSet3;
+                this.Offspring2 = this.TwoSet4;
+            }
+
+            [this.Offspring1[2], this.Offspring1[6]] = [this.Offspring1[6], this.Offspring1[2]];
+            [this.Offspring2[2], this.Offspring2[6]] = [this.Offspring2[6], this.Offspring2[2]];
+
+            this.result5 = this.createJson(5, this.Offspring1);
+            this.result6 = this.createJson(6, this.Offspring2);
         },
         generateSingleSet(set1, set2) {
             return set1.slice(0, 3).concat(set2.slice(3));
@@ -176,20 +206,26 @@ export default {
         },
         generateSets() {
             this.SingleSet1 = this.generateSingleSet(this.setMin1, this.setMin2);
+            this.SingleFitness1 = this.check_list(this.SingleSet1);
+
             this.SingleSet2 = this.generateSingleSet(this.setMin2, this.setMin1);
+            this.SingleFitness2 = this.check_list(this.SingleSet2);
+
             this.TwoSet3 = this.generateTwoSet(this.setMin1, this.setMin2);
+            this.TwoFitness1 = this.check_list(this.TwoSet3);
+            
             this.TwoSet4 = this.generateTwoSet(this.setMin2, this.setMin1);
+            this.TwoFitness2 = this.check_list(this.TwoSet4);
         },
         get() {
             this.length = localStorage.getItem("Langth");
             this.volume = localStorage.getItem("Volume");
             this.functionValue = localStorage.getItem("functionValue");
             console.log("set successfully!")
-            if (!this.Langth && !this.Volume && !this.functionValue) {
+            if (!this.length || !this.volume || !this.functionValue) {
                 window.location = 'set'
             }
         }
     }
 }
 </script>
-
