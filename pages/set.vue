@@ -3,24 +3,24 @@
     <div class="d-flex align-items-center w-100" style="height: 100vh;">
       <div class="container">
         <div class="row justify-content-center d-flex gap-3">
-          <div class="col-12 col-md-3 d-flex flex-column border border-5 rounded-4 p-4 gap-3 fade1">
+          <div class="col-12 col-md-5 d-flex flex-column border border-5 rounded-4 p-4 gap-6 fade1">
             <strong>
               <p id="langth" class="text-center fs-2" >Langth</p>
             </strong>
             <input v-model="Langth" type="number" class="form-control text-center" style="border-color: var(--primary-color);" placeholder="Langth" >
           </div>
-          <div class="col-12 col-md-3 d-flex flex-column border border-5 rounded-4 p-4 gap-3 fade2">
+          <div class="col-12 col-md-5 d-flex flex-column border border-5 rounded-4 p-4 gap-3 fade2">
             <strong>
               <p  id="volume" class="text-center fs-2">Volume</p>
             </strong>
             <input v-model="Volume" type="number" class="form-control text-center" style="border-color: var(--primary-color);" placeholder="Volume">
           </div>
-          <div class="col-12 col-md-3 d-flex flex-column border border-5 rounded-4 p-4 gap-3 fade3">
+          <!-- <div class="col-12 col-md-3 d-flex flex-column border border-5 rounded-4 p-4 gap-3 fade3">
             <strong>
               <p id="function" class="text-center fs-2" >Function</p>
             </strong>
             <input v-model="functionValue" type="text"  class="form-control text-center" style="border-color: var(--primary-color);" placeholder="Function" >
-          </div>
+          </div> -->
         </div>
         <div class="row">
           <div class="col-12 d-flex justify-content-center mt-5">

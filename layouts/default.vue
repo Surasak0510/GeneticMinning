@@ -5,7 +5,7 @@
             <div class="col-12 d-flex">
                 <a class="text-container fs-3 fw-bold link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 me-auto p-2" href="/">Genetic</a>
                 <a class="text-container link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 p-0 me-5 my-auto text-center" href="set">Create Model</a>
-                <a class="text-container link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 p-0 mx-5 my-auto text-center">Flex item</a>
+                <!-- <a class="text-container link-light link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 p-0 mx-5 my-auto text-center">Flex item</a> -->
             </div>
         </div>
     </div>
