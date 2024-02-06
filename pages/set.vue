@@ -47,21 +47,21 @@ export default {
   },
   methods: {
     set() {
-      if (this.Langth !== 0 && this.Volume !== 0 && this.functionValue !== 0 && this.Langth !== null && this.Volume !== null && this.functionValue !== null) {
+      // console.log(typeof(this.Langth),this.Langth ,typeof(this.Volume), this.Volume,typeof(this.functionValue), this.functionValue);
+      if (this.Langth !== 0 && this.Volume !== 0 && this.functionValue !== 0 && this.Langth !== null && this.Volume !== null && this.functionValue !== null && this.Langth !== "0" && this.Volume !== "0" && this.functionValue !== "0" ) {
         localStorage.setItem("Langth", this.Langth);
         localStorage.setItem("Volume", this.Volume);
         localStorage.setItem("functionValue", this.functionValue);
-        // console.log(this.Langth , this.Volume, this.functionValue);
         window.location = 'Model';
       } else {
         const title = () => {
-          if (this.Langth === 0) {
+          if (this.Langth === 0 || this.Langth === "0") {
             return 'กรุณากรอก Langth'
           }
-          if (this.Volume === 0) {
+          if (this.Volume === 0 || this.Volume === "0") {
             return 'กรุณากรอก Volume'
           }
-          if (this.functionValue === 0) {
+          if (this.functionValue === 0 || this.functionValue === "0") {
             return 'กรุณากรอก function'
           }
         }

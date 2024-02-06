@@ -11,61 +11,21 @@
                     <p class="text-center">ค่า Fitness : {{ item.fitness }}</p>
                 </div>
             </div>
-            <div class="row text-center">
-                <p class="p-0 m-0 py-2">
-                    ---------------------------- Father & Mather --------------------------------
+            <div class="row">
+                <p class="text-center">
+                    ------------------------ displayset ------------------------
                 </p>
+                <!-- <pre>
+                    {{ displayset }}
+                </pre> -->
             </div>
-            <div  v-for="(item , indexOfMin2Set) in min2Sets" :key="indexOfMin2Set" data-aos="fade-up" data-aos-duration="1500"  class="row border my-2 border-2 p-2 gap-2 rounded-3">
-                <p class="py-0 m-0">เซ็ตที่น้อยเซ็ตที่ {{ indexOfMin2Set + 1 }}</p>
-                <div v-for="(i , indexOfItem) in item" :key="indexOfItem" class="col py-auto border border-2 rounded-pill">
+            <div v-for="(item , index) in displayset" :key="index" data-aos="fade-up" data-aos-duration="1500" class="row border my-2 border-2 p-2 gap-2 rounded-3">
+                <p class="py-0 m-0">เซ็ตที่ {{ index + 1 }}</p>
+                <div v-for="(i , indexOfSet) in item[1]" :key="indexOfSet" class="col py-auto border border-2 rounded-pill">
                     <p class="text-center m-0 py-2">{{ i }}</p>
                 </div>
-            </div>
-            <div class="row text-center">
-                <p class="p-0 m-0 py-2">
-                    ----------------------------- Single Point -------------------------------
-                </p>
-            </div>
-            <div data-aos="fade-up" data-aos-duration="1500" class="row border my-2 border-2 p-2 gap-2 rounded-3" >
-                <p class="py-0 m-0">Single Point 1</p>
-                <div v-for="(item , index) in SingleSet1" :key="index" class="col py-auto border border-2 rounded-pill">
-                    <p class="text-center m-0 py-2">{{ item }}</p>
-                </div>
                 <div class="col-12 mt-2">
-                    <p class="text-center">ค่า Fitness : {{ SingleFitness1.fitness }}</p>
-                </div>
-            </div>
-            <div data-aos="fade-up" data-aos-duration="1500" class="row border my-2 border-2 p-2 gap-2 rounded-3" >
-                <p class="py-0 m-0">Single Point 2</p>
-                <div v-for="(item , index) in SingleSet2" :key="index" class="col py-auto border border-2 rounded-pill">
-                    <p class="text-center m-0 py-2">{{ item }}</p>
-                </div>
-                <div class="col-12 mt-2">
-                    <p class="text-center">ค่า Fitness : {{ SingleFitness2.fitness }}</p>
-                </div>
-            </div>
-            <div class="row text-center">
-                <p class="p-0 m-0 py-2">
-                    ------------------------------- Two Point -----------------------------
-                </p>
-            </div>
-            <div data-aos="fade-up" data-aos-duration="1500" class="row border my-2 border-2 p-2 gap-2 rounded-3" >
-                <p class="py-0 m-0">Two Point 1</p>
-                <div v-for="(item , index) in TwoSet3" :key="index" class="col py-auto border border-2 rounded-pill">
-                    <p class="text-center m-0 py-2">{{ item }}</p>
-                </div>
-                <div class="col-12 mt-2">
-                    <p class="text-center">ค่า Fitness : {{ TwoFitness1.fitness }}</p>
-                </div>
-            </div>
-            <div data-aos="fade-up" data-aos-duration="1500" class="row border my-2 border-2 p-2 gap-2 rounded-3" >
-                <p class="py-0 m-0">Two Point 2</p>
-                <div v-for="(item , index) in TwoSet4" :key="index" class="col py-auto border border-2 rounded-pill">
-                    <p class="text-center m-0 py-2">{{ item }}</p>
-                </div>
-                <div class="col-12 mt-2">
-                    <p class="text-center">ค่า Fitness : {{ TwoFitness2.fitness }}</p>
+                    <p class="text-center">ค่า Fitness : {{ item[2].fitness }}</p>
                 </div>
             </div>
         </div>
@@ -85,10 +45,13 @@ export default {
 
             results: [],
             setPopulation: [],
+            displayset: [],
             min2Sets: [],
             setMin1: [],
             setMin2: [],
             numbers: [],
+
+            position : 0,
 
             SingleSet1: [],
             SingleFitness1: 0,
@@ -133,13 +96,13 @@ export default {
             return { fitness, numbers };
         },
         display(data) {
-            const result = { set: data[1], fitness: data[2] } ;
+            const result = { "set": data[1], "fitness": data[2] } ;
             return result;
         },
         createJson(number, set) {
+            console.log("jsonData : ",set);
             const fitness = this.check_list(set);
-            const jsonData = this.display([number, set, fitness.fitness]);
-            console.log(jsonData);
+            // const jsonData = this.display([number, set, fitness.fitness]);
             return [number, set, fitness];
         },
         lessFitness2(data) {
@@ -149,13 +112,40 @@ export default {
                     console.log(dataMin);
                     this.min2Sets.push(dataMin.set);
                 });
-                console.log("Sets with the lowest fitness values:");
-                console.log(this.min2Sets);
+                console.log("Sets with the lowest fitness values:",this.min2Sets);
                 return this.min2Sets;
             } else {
                 console.log("No data available or invalid data format");
                 return [];
             }
+        },
+        SinglePoint(set1, set2) {
+            const temp = [...set1.slice(0, 2)];
+            set1.splice(0, 2, ...set2.slice(0, 2));
+            set2.splice(0, 2, ...temp);
+            return [set1, set2];
+        },
+        TwoPoint(set1, set2) {
+            const tempSet1 = [...set1.slice(0, 2)];
+            const tempSet2 = [...set2.slice(0, 2)];
+            
+            // สลับส่วนแรกของ set1 และ set2
+            set1.splice(0, 2, ...tempSet2);
+            set2.splice(0, 2, ...tempSet1);
+            
+            // สลับส่วนท้ายของ set1 และ set2
+            set1.splice(-2, 2, ...tempSet2);
+            set2.splice(-2, 2, ...tempSet1);
+            
+            return [set1, set2];
+        },
+        mutation(arr) {
+            if (arr.length >= 7) {
+            [arr[2], arr[6]] = [arr[6], arr[2]];
+            } else {
+            console.log("Array ไม่มีขนาดเพียงพอสำหรับการสลับ");
+            }
+            return arr;
         },
         runModel() {
             for (let i = 0; i < this.volume; i++) {
@@ -166,56 +156,91 @@ export default {
                 this.results.push(jsonData);
                 this.setPopulation.push(numbers);
             }
+
             this.min2Sets = this.lessFitness2(this.results);
-            console.log("+++++++++++++++++", this.min2Sets);
             this.setMin1 = this.min2Sets[0];
             this.setMin2 = this.min2Sets[1];
 
-            this.generateSets();
+            console.log("this.setMin1 : ",this.setMin1)
+            const Single = this.SinglePoint(this.setMin1,this.setMin2)
+            const Two = this.TwoPoint(this.setMin1,this.setMin2)
 
-            const result1 = this.createJson(1, this.SingleSet1);
-            const result2 = this.createJson(2, this.SingleSet2);
-            const result3 = this.createJson(3, this.TwoSet3);
-            const result4 = this.createJson(4, this.TwoSet4);
+            console.log("Single : ",Single)
+            console.log("Two : ",Two)
+            let sumSing = 0
+            let sumTwo = 0
 
-            this.crossoverSinglePoint = Math.abs(result1[2].fitness + result2[2].fitness);
-            console.log("ผลรวมของ Fitness Single Point :", this.crossoverSinglePoint);
+            Single.forEach(set => {
+                sumSing += this.check_list(set)
+            })
 
-            this.crossoverTwoPoint = Math.abs(result3[2].fitness + result4[2].fitness);
-            console.log("ผลรวมของ Fitness Two Point :", this.crossoverTwoPoint);
+            Two.forEach(set => {
+                sumTwo += this.check_list(set)
+            })
 
-            if (this.crossoverSinglePoint < this.crossoverTwoPoint) {
-                this.Offspring1 = this.SingleSet1;
-                this.Offspring2 = this.SingleSet2;
+            if (sumSing > sumTwo) {
+                this.result5 = this.createJson(5 , Single[0])
+                this.result6 = this.createJson(6 , Single[1])
             } else {
-                this.Offspring1 = this.TwoSet3;
-                this.Offspring2 = this.TwoSet4;
+                this.result5 = this.createJson(5 , Single[0])
+                this.result6 = this.createJson(6 , Single[1])
             }
 
-            [this.Offspring1[2], this.Offspring1[6]] = [this.Offspring1[6], this.Offspring1[2]];
-            [this.Offspring2[2], this.Offspring2[6]] = [this.Offspring2[6], this.Offspring2[2]];
+            this.setPopulation[this.position] = this.mutation(this.result5[1])
+            this.setPopulation[this.position + 1] = this.mutation(this.result6[1])
 
-            this.result5 = this.createJson(5, this.Offspring1);
-            this.result6 = this.createJson(6, this.Offspring2);
-        },
-        generateSingleSet(set1, set2) {
-            return set1.slice(0, 3).concat(set2.slice(3));
-        },
-        generateTwoSet(set1, set2) {
-            return set1.slice(0, 3).concat(set2.slice(3, 7), set1.slice(-2));
-        },
-        generateSets() {
-            this.SingleSet1 = this.generateSingleSet(this.setMin1, this.setMin2);
-            this.SingleFitness1 = this.check_list(this.SingleSet1);
+            this.position = 2
 
-            this.SingleSet2 = this.generateSingleSet(this.setMin2, this.setMin1);
-            this.SingleFitness2 = this.check_list(this.SingleSet2);
+            while (this.position < this.volume) {
+                console.log(this.position)
+                for (let i = this.position;i < this.volume; i++) {
+                    const numbers = this.random_number(9);
+                    const result = this.check_list(numbers);
+                    console.log("1 :",this.display([i, numbers, result.fitness]));
+                    const jsonData = this.display([i, numbers, result.fitness]);
+                    this.results[i] = jsonData;
+                    console.log("numbers : ",this.position)
+                    this.setPopulation[i] = numbers;
+                    console.log("this.setPopulation : ",this.setPopulation)
+                }
 
-            this.TwoSet3 = this.generateTwoSet(this.setMin1, this.setMin2);
-            this.TwoFitness1 = this.check_list(this.TwoSet3);
-            
-            this.TwoSet4 = this.generateTwoSet(this.setMin2, this.setMin1);
-            this.TwoFitness2 = this.check_list(this.TwoSet4);
+                this.min2Sets = this.lessFitness2(this.results);
+                this.setMin1 = this.min2Sets[0];
+                this.setMin2 = this.min2Sets[1];
+
+                const Single = this.SinglePoint(this.setMin1,this.setMin2)
+                const Two = this.TwoPoint(this.setMin1,this.setMin2)
+
+                let sumSing = 0
+                let sumTwo = 0
+
+                Single.forEach(set => {
+                    sumSing += this.check_list(set)
+                })
+
+                Two.forEach(set => {
+                    sumTwo += this.check_list(set)
+                })
+
+                if (sumSing > sumTwo) {
+                    this.result5 = this.createJson(5 , Single[0])
+                    this.result6 = this.createJson(6 , Single[1])
+                } else {
+                    this.result5 = this.createJson(5 , Single[0])
+                    this.result6 = this.createJson(6 , Single[1])
+                }
+
+                this.setPopulation[this.position] = this.mutation(this.result5[1])
+                this.setPopulation[this.position + 1] = this.mutation(this.result6[1])
+
+                this.position += 2;
+            }
+            let i = 0
+            this.setPopulation.forEach(setData => {
+                this.displayset.push(this.createJson(i,setData))
+                console.log("--------------------------------",this.displayset)
+                i++
+            })
         },
         get() {
             this.length = localStorage.getItem("Langth");
